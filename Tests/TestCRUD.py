@@ -65,8 +65,114 @@ def test_functionalitate3():
     assert Cea_Mai_Mare_Cheltuiala(lista) == [273.07, 32.12, 30.40]
 
 
+def test_undo_redo():
+    lista = []
+    undoList = []
+    redoList = []
+    lista = Adauga_Cheltuiala("1", 27, 273.07, "09.04.2000", "canal", lista)
+    undoList.append(lista)
+    redoList.clear()
+    lista = Adauga_Cheltuiala("2", 30, 30.40, "27.09.1980", "alte cheltuieli", lista)
+    undoList.append(lista)
+    redoList.clear()
+    lista = Adauga_Cheltuiala("3", 12, 52.32, "12.12.2012", "canal", lista)
+    undoList.append(lista)
+    redoList.clear()
 
+    assert len(lista) == 3
+    assert len(undoList) == 3
 
+    redoList.append(lista)
+    undoList.pop()
 
+    assert len(undoList) == 2
+    assert len(redoList) == 1
+
+    redoList.append(lista)
+    undoList.pop()
+
+    assert len(undoList) == 1
+    assert len(redoList) == 2
+
+    redoList.append(lista)
+    undoList.pop()
+
+    assert len(undoList) == 0
+    assert len(redoList) == 3
+
+    redoList.clear()
+    lista.clear()
+
+    Adauga_Cheltuiala("1", 27, 273.07, "09.04.2000", "canal", lista)
+    undoList.append(lista)
+    redoList.clear()
+    Adauga_Cheltuiala("2", 30, 30.40, "27.09.1980", "alte cheltuieli", lista)
+    undoList.append(lista)
+    redoList.clear()
+    Adauga_Cheltuiala("3", 12, 52.32, "12.12.2012", "canal", lista)
+    undoList.append(lista)
+    redoList.clear()
+
+    assert len(undoList) == 3
+    assert len(redoList) == 0
+
+    redoList.append(lista)
+    undoList.pop()
+
+    assert len(undoList) == 2
+    assert len(redoList) == 1
+
+    redoList.append(lista)
+    undoList.pop()
+
+    assert len(undoList) == 1
+    assert len(redoList) == 2
+
+    redoList.pop()
+    undoList.append(lista)
+    assert len(undoList) == 2
+    assert len(redoList) == 1
+
+    redoList.pop()
+    undoList.append(lista)
+    assert len(undoList) == 3
+    assert len(redoList) == 0
+
+    undoList.pop()
+    redoList.append(lista)
+    assert len(undoList) == 2
+    assert len(redoList) == 1
+
+    undoList.pop()
+    redoList.append(lista)
+    assert len(undoList) == 1
+    assert len(redoList) == 2
+
+    Adauga_Cheltuiala("2", 30, 30.40, "27.09.1980", "alte cheltuieli", lista)
+    undoList.append(lista)
+    redoList.clear()
+
+    assert len(undoList) == 2
+    assert len(redoList) == 0
+
+    undoList.pop()
+    redoList.append(lista)
+    assert len(undoList) == 1
+    assert len(redoList) == 1
+
+    undoList.pop()
+    redoList.append(lista)
+    assert len(undoList) == 0
+    assert len(redoList) == 2
+
+    redoList.pop()
+    undoList.append(lista)
+    assert len(undoList) == 1
+    assert len(redoList) == 1
+
+    redoList.pop()
+    undoList.append(lista)
+    assert len(undoList) == 2
+    assert len(redoList) == 0
 
 
